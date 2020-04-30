@@ -13,7 +13,7 @@ class Unmounted extends Component {
 
 class Home extends Component {
     state = {
-        title: 'This is Oci Home',
+        title: 'This is Ajay Home',
         data: [],
         mount: true
     }

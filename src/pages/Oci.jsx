@@ -19,7 +19,7 @@ class Home extends Component {
     }
 
     changeTitle = () => {
-        this.setState({ title: 'This is Derby Home' })
+        this.setState({ title: 'This is Ajay Home' })
     }
 
     unmountComp = () => {
