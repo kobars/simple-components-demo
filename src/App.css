@@ -36,3 +36,13 @@
     transform: rotate(360deg);
   }
 }
+
+.bg-info {
+  background-color: #26c6da;
+}
+.card {
+  width: 400px !important;
+  text-align: left;
+  box-shadow: -1px 15px 30px -12px black;
+  height: 300px;
+}
