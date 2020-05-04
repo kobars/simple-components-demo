@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import TwitterCard from '../components/Twitter'
+import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
 import axios from 'axios'
 
 class Unmounted extends Component {
@@ -46,6 +48,7 @@ class Home extends Component {
     render() {
         return (
             <div>
+                <Link to="/counter"><h1 className="text-center">Point {this.props.point}</h1></Link>
                 {this.state.mount && <Unmounted />}
                 <button className="btn btn-info" onClick={this.unmountComp}>{this.state.mount ? 'Unmount atas' : 'Mount atas'}</button>
                 <h1 className="text-center pt-3 pb-3" onClick={this.changeTitle}>{this.state.title}</h1>
@@ -60,4 +63,8 @@ class Home extends Component {
     }
 }
 
-export default Home
+const mapDispatchToProps = (state) => ({
+    point: state.count
+})
+
+export default connect(mapDispatchToProps)(Home)
