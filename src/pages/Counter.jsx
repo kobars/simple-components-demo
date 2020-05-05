@@ -2,13 +2,17 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { changePoints } from '../store/actions/count'
-import { chooseMentee, addMentee, getData, resetState } from '../store/actions/mentee'
+import { chooseMentee, addMentee, getData, resetState, searchCollege } from '../store/actions/mentee'
+import Input from '../components/Input'
 
 class Counter extends React.Component {
 
     onClick = (num) => this.props.add(num)
 
-    chooseMentee = (name) => this.props.choose(name)
+    chooseMentee = (name) => {
+        this.props.choose(name)
+        this.props.searchCollege(name)
+    }
 
     onAddClick = () => {
         this.props.addMentee(this.props.mentee)
@@ -21,7 +25,8 @@ class Counter extends React.Component {
 
     render() {
         // console.log('dispatch', this.props.dispatch)
-        const { count, mentee, data, mentees, resetState } = this.props
+        console.log(this.props.loading)
+        const { count, mentee, data, mentees, resetState, colleges } = this.props
         return (
             <div className="text-center">
                 <div className="mt-3">
@@ -32,11 +37,10 @@ class Counter extends React.Component {
                     {/* <button className="btn btn-danger mb-5">Reset Point</button> */}
                 </div>
 
+                <Input chooseMentee={(e) => this.chooseMentee(e.target.value)} mentee={mentee} />
                 <div>
-                    <input onChange={(val) => this.chooseMentee(val.target.value)} label="input" value={mentee} />
-                    <h1 className="mt-3">{mentee}</h1>
+                    {!this.props.loading ? colleges.map((el, index) => (<p key={index}>{el.name}</p>)) : <h3 className="text-info">loading...</h3>}
                 </div>
-
                 <div>
                     <button className="btn btn-dark mt-5" onClick={this.onAddClick}>Add mentee</button>
                     {data.map((el, index) => (<h1 key={index}>{el.name}</h1>))}
@@ -61,7 +65,9 @@ const mapStateToProps = (state) => {
         count: state.count,
         mentee: state.mentee.chosenMentee,
         mentees: state.mentee.mentees,
-        data: state.mentee.data
+        data: state.mentee.data,
+        colleges: state.mentee.colleges,
+        loading: state.mentee.loading
     })
 }
 
@@ -70,7 +76,8 @@ const mapDispatchToProps = {
     choose: chooseMentee,
     addMentee,
     getData,
-    resetState
+    resetState,
+    searchCollege
 }
 
 // export default connect(state => ({ count: state.count, mentee: state.mentee.chosenMentee }), {})(Counter)
