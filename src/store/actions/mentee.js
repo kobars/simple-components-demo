@@ -31,3 +31,22 @@ export const getData = () => {
         })
     }
 }
+
+export const searchCollege = (keyword) => {
+    const url = `http://universities.hipolabs.com/search?name=${keyword}`
+    return async dispatch => {
+        dispatch({
+            type: "SET_LOADING",
+            payload: true
+        })
+        const response = await axios.get(url)
+        await dispatch({
+            type: "SEARCH_COLLEGES",
+            payload: response.data.slice(-10)
+        })
+        dispatch({
+            type: "SET_LOADING",
+            payload: false
+        })
+    }
+}
