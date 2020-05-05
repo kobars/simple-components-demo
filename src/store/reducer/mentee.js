@@ -1,7 +1,9 @@
 const initialState = {
     chosenMentee: '',
     mentees: [],
-    data: []
+    data: [],
+    colleges: [],
+    loading: false
 }
 
 export const menteesReducer = (allMentees = initialState, action) => {
@@ -24,6 +26,16 @@ export const menteesReducer = (allMentees = initialState, action) => {
         case "RESET_STATE":
             return {
                 ...initialState
+            }
+        case "SEARCH_COLLEGES":
+            return {
+                ...allMentees,
+                colleges: action.payload
+            }
+        case 'SET_LOADING':
+            return {
+                ...allMentees,
+                loading: action.payload
             }
         default:
             return allMentees
